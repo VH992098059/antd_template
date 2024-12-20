@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'antd';
 
+/*
 const contentStyle: React.CSSProperties = {
     margin: 0,
     height: '300px',
@@ -9,15 +10,16 @@ const contentStyle: React.CSSProperties = {
     textAlign: 'center',
     background: '#364d79',
 };
+*/
 
 const CarouselHeader: React.FC = () => (
     <>
-        <Carousel arrows autoplay infinite={true} effect="fade" >
+        <Carousel arrows autoplay infinite={true} effect="fade" id={"Carousel_Header"}>
             <div>
-                <h3 style={contentStyle}>1</h3>
+                <h3 id={"Carousel_body"}>1</h3>
             </div>
             <div>
-                <h3 style={contentStyle}>2</h3>
+                <h3 id={"Carousel_body"}>2</h3>
             </div>
 
         </Carousel>

@@ -1,0 +1,58 @@
+@media (min-width: 767px) {
+  #activity-header{
+    margin: 1rem 23% 0 23%;
+
+    #Carousel_Header{
+      width: 470px;
+    }
+    #Carousel_body{
+      margin: 0;
+      height: 300px;
+      color: #fff;
+      line-height: 300px;
+      text-align: center;
+      background: #364d79;
+    }
+    #activity_messages{
+      flex: 0 0 30%;
+      padding: 10px 30px;
+      #activity_message{
+
+        p{
+          width: 230px;
+          word-break: break-all;
+
+        }
+      }
+    }
+
+  }
+
+}
+@media (max-width: 768px) {
+  #activity-header{
+    #Carousel_body{
+      margin: 0;
+      height: 240px;
+      color: #fff;
+      line-height: 240px;
+      text-align: center;
+      background: #364d79;
+
+    }
+    #activity_messages{
+      flex: 0 0 100%;
+      padding: 10px 30px;
+      #activity_message{
+        p{
+          //width: 230px;
+          word-break: break-all;
+
+        }
+      }
+    }
+  }
+}
+@media(max-width: 480px){
+
+}
