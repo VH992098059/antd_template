@@ -1,8 +1,7 @@
 import React from 'react';
 import {Layout, theme} from 'antd';
-
-import ContentBody from "../../page/Home/Content/ContentBody.tsx";
 import HeaderModel from "./HeaderModel/HeaderModel.tsx";
+import {Outlet} from "react-router-dom";
 
 
 const { Content, Footer } = Layout;
@@ -25,7 +24,7 @@ const Home: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    <ContentBody/>
+                    <Outlet/>
 
                 </div>
             </Content>

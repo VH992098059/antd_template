@@ -1,12 +1,11 @@
 import "./UserLayout.scss";
 import React from "react";
-import Register from "../../page/Register/register.tsx";
+import {Outlet} from "react-router-dom";
 
 const UserLayout:React.FC = () => {
     return (
         <div className="UserLayout">
-            {/*<Login/>*/}
-            <Register/>
+            <Outlet/>
         </div>
     )
 }
