@@ -10,7 +10,7 @@ const Not_found: React.FC = () => (
         subTitle="哦吼，页面不存在！"
         extra={
             <Button type="primary" href={"/"}>
-                返回主页
+                返回上一页
             </Button>
         }
     />

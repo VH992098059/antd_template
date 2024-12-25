@@ -1,12 +1,11 @@
 import {ConfigProvider} from "antd";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {routesLy} from "./router/routes.tsx";
+import {RouterProvider} from "react-router-dom";
+import router from "./router/router.tsx";
 
 export const App =()=>{
     return (
         <ConfigProvider>
-            <RouterProvider router={createBrowserRouter(routesLy)}/>
-           {/* <HomeLayout/>*/}
+            <RouterProvider router={router}/>
         </ConfigProvider>
     )
 }

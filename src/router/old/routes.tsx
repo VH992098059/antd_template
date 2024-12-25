@@ -6,11 +6,12 @@ import {Navigate} from "react-router-dom";
 
 const RouterLayout: RouteConfig[] = [
     {
-        element: lazy(() => import("../layout/Home/HomeLayout.tsx")),
+        path:"",
+        element: lazy(() => import("../../layout/Home/HomeLayout.tsx")),
         children: [
             {
                 path: "/home",
-                element: lazy(() => import("../page/Home/Content/ContentBody.tsx")),
+                element: lazy(() => import("../../page/Home/Content/ContentBody.tsx")),
 
             },
             {
@@ -21,24 +22,24 @@ const RouterLayout: RouteConfig[] = [
             },
             {
                 path:'/activity',
-                element:lazy(()=>import("../page/Activity/ActivityPage.tsx"))
+                element:lazy(()=>import("../../page/Activity/ActivityPage.tsx"))
             }
         ],
     },
     {
         path: "*",
-        element: lazy(() => import("../page/404/not_found.tsx"))
+        element: lazy(() => import("../../page/404/not_found.tsx"))
     },
     {
-        element: lazy(() => import("../layout/Login/UserLayout.tsx")),
+        element: lazy(() => import("../../layout/Login/UserLayout.tsx")),
         children:[
             {
                 path: "/login",
-                element:lazy(()=>import("../page/Login/login.tsx"))
+                element:lazy(()=>import("../../page/Login/login.tsx"))
             },
             {
                 path:"/register",
-                element:lazy(()=>import("../page/Register/register.tsx"))
+                element:lazy(()=>import("../../page/Register/register.tsx"))
             }
         ]
     }
