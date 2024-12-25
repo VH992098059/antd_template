@@ -1,8 +1,8 @@
 import React from 'react';
 import {Layout, theme} from 'antd';
-import HeaderModel from "../../page/Home/HeaderModel/HeaderModel.tsx";
-import ActivityPage from "../../page/Activity/ActivityPage.tsx";
+
 import ContentBody from "../../page/Home/Content/ContentBody.tsx";
+import HeaderModel from "./HeaderModel/HeaderModel.tsx";
 
 
 const { Content, Footer } = Layout;

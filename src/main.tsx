@@ -1,11 +1,9 @@
-import { StrictMode } from 'react'
+
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import HomeLayout from "./layout/Home/HomeLayout.tsx";
+import {App} from "./app.tsx";
 
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <HomeLayout/>
-  </StrictMode>,
+    <App/>
 )

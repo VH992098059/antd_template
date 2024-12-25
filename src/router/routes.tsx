@@ -1,19 +1,16 @@
-import HomeLayout from "../layout/Home/HomeLayout.tsx";
-import ContentBody from "../page/Home/Content/ContentBody.tsx";
-import {useRoutes} from "react-router-dom";
 
-export const RouterLayout = ()=>{
-    return useRoutes([
-        {
-            path: '/home',
-            element: <HomeLayout/>,
-            children: [
-                {
-                    path: '/',
-                    element: <ContentBody/>,
+import {buildRoutes, RouteConfig} from "./routesUtils.tsx";
+import {lazy} from "react";
 
-                },
-            ]
-        }
-    ])
-}
+const RouterLayout:RouteConfig[]=[
+    {
+        element: lazy(() => import("../layout/Home/HomeLayout.tsx")),
+        children:[
+            {
+                path: "/",
+                element:lazy(()=>import("../page/Home/Content/ContentBody.tsx"))
+            }
+        ]
+    }
+]
+export const routesLy=buildRoutes(RouterLayout)
