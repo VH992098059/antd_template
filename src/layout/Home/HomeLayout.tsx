@@ -2,6 +2,7 @@ import React from 'react';
 import {Layout, theme} from 'antd';
 import HeaderModel from "../../page/Home/HeaderModel/HeaderModel.tsx";
 import ActivityPage from "../../page/Activity/ActivityPage.tsx";
+import ContentBody from "../../page/Home/Content/ContentBody.tsx";
 
 
 const { Content, Footer } = Layout;
@@ -24,8 +25,8 @@ const Home: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    {/*<ContentBody/>*/}
-                    <ActivityPage/>
+                    <ContentBody/>
+
                 </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
