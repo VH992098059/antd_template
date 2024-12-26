@@ -1,11 +1,18 @@
 import "./UserLayout.scss";
 import React from "react";
-import {Outlet} from "react-router-dom";
+import {useLocation, useOutlet} from "react-router-dom";
+import {CSSTransition, SwitchTransition} from "react-transition-group";
 
 const UserLayout:React.FC = () => {
+    const location = useLocation()
+    const currentOutlet = useOutlet()
     return (
         <div className="UserLayout">
-            <Outlet/>
+            <SwitchTransition mode="out-in">
+                <CSSTransition timeout={300} key={location.key} classNames={"fade"}>
+                    {currentOutlet}
+                </CSSTransition>
+            </SwitchTransition>
         </div>
     )
 }

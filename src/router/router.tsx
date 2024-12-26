@@ -6,6 +6,7 @@ import UserLayout from "../layout/Login/UserLayout.tsx";
 import Not_found from "../page/404/not_found.tsx";
 import Login from "../page/Login/login.tsx";
 import Register from "../page/Register/register.tsx";
+import {lazyLoad} from "./lazyLoad.tsx";
 
 const router=createBrowserRouter([
     {
@@ -28,15 +29,16 @@ const router=createBrowserRouter([
     },
     {
         path:"/userLayout",
-        element: <UserLayout/>,
+        element: lazyLoad(<UserLayout/>),
         children:[
             {
+                index:true,
                 path: "login",
-                element: <Login/>
+                element: lazyLoad(<Login/>)
             },
             {
                 path: "register",
-                element: <Register/>
+                element: lazyLoad(<Register/>)
             }
         ]
 

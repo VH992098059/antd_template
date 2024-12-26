@@ -1,8 +1,45 @@
-body {
-  background: url('../../images/Login/background.jpeg');
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  box-sizing: border-box;
+@media (min-width: 1025px) {
+  body {
+    background: url('../../images/Login/background.jpeg');
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 1024px) {
+  body{
+    background: #f6f9fe;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+}
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.fade-enter {
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms, transform 300ms;
+
+
+}
+.fade-exit {
+  opacity: 1;
+  transition: opacity 300ms, transform 300ms;
+
+}
+.fade-exit-active {
+  opacity: 0;
+
+  transition: opacity 300ms, transform 300ms;
 }

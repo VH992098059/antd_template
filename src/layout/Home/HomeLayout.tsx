@@ -1,7 +1,7 @@
 import React from 'react';
 import {Layout, theme} from 'antd';
 import HeaderModel from "./HeaderModel/HeaderModel.tsx";
-import {Outlet} from "react-router-dom";
+import { useOutlet} from "react-router-dom";
 
 
 const { Content, Footer } = Layout;
@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
-
+    const currentOutlet = useOutlet()
     return (
         <Layout>
             <HeaderModel/>
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    <Outlet/>
+                    {currentOutlet}
 
                 </div>
             </Content>

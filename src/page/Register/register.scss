@@ -1,18 +1,115 @@
-@media (min-width: 789px) {
-  #register {
-    background-image: linear-gradient(45deg, rgba(255, 154, 158, 0.8) 0%, rgba(250, 208, 196, 0.3) 100%, rgba(250, 208, 196, 1) 100%);  padding: 40px;
-    display: flex;
+.registerBackground{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 1025px) {
+  .register{
+    background-image: linear-gradient(45deg, rgba(182, 173, 160, 0.8) 0%, rgba(255, 49, 49, 0.1) 100%, rgb(216, 216, 216) 100%);
+    padding: 100px;
+    border-radius: 20px;
+    width: 450px;
     flex-direction: column;
-    width: 480px;
-    border-radius: 30px;
+    justify-content: center;
+  }
+  .loginReturn{
+    position: relative;
+    top: -60px;
+    left: -65px;
   }
 }
-@media (max-width: 788px) {
-  #register {
-    background-image: linear-gradient(45deg, rgba(255, 154, 158, 0.8) 0%, rgba(250, 208, 196, 0.3) 100%, rgba(250, 208, 196, 1) 100%);  padding: 40px;
-    display: flex;
-    flex-direction: column;
-    width: 480px;
-    border-radius: 30px;
+
+.title{
+  font-size: 34px;
+  color: #4e4e4e;
+  letter-spacing: 4px;
+}
+
+.subTitle{
+  font-size: 18px;
+  color: #4e4e4e;
+}
+.registerForm{
+  margin-top: 50px;
+}
+.registerSubmit{
+  margin-top: 10px;
+}
+
+:global(.ant-input-outlined){
+  background: #f6f9fe;
+  border:1px solid #f6f9fe;
+  height: 52px;
+  border-radius: 26px;
+  padding: 0 30px;
+}
+:global(.ant-input::placeholder){
+  color:#1a76e1;
+
+}
+:global(.ant-btn-primary){
+  background:#1a76e1;
+  height: 52px;
+  font-size: 24px;
+  border-radius: 26px;
+}
+
+/* 媒体查询样式 */
+@media (max-width: 1536px) and (max-height:900px) {
+  .registerBackground {
+    background-size: 1536px 900px;
+  }
+
+  .register {
+
+    margin-left: 80px;
+    width: 400px;
+  }
+
+}
+@media (max-width: 1024px) {
+  .registerBackground {
+    background: #e7eeff;
+  }
+
+  .register {
+    margin-left: 0;
+    position: static;
+    width: 80vw;
+  }
+
+  .title {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .subTitle {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  :global(.ant-input-outlined) {
+    background: #f8f9fe;
+    height: 52px;
+    border-radius: 26px;
+    padding: 0 30px;
+  }
+
+  :global(.ant-input::placeholder) {
+    color: #a7aaaf;
+  }
+
+  :global(.ant-btn-primary) {
+    background: #4785e8;
+    height: 52px;
+    font-size: 20px;
+    border-radius: 26px;
+  }
+  .loginReturn{
+    position: absolute;
+    top: 20px;
+    left: 20px;
   }
 }
+
