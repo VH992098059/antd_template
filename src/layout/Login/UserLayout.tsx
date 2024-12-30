@@ -2,6 +2,7 @@ import "./UserLayout.scss";
 import React from "react";
 import {useLocation, useOutlet} from "react-router-dom";
 import {CSSTransition, SwitchTransition} from "react-transition-group";
+import {LazyLoading} from "../../router/LazyLoading.tsx";
 
 const UserLayout:React.FC = () => {
     const location = useLocation()
@@ -9,7 +10,7 @@ const UserLayout:React.FC = () => {
     return (
         <div className="UserLayout">
             <SwitchTransition mode="out-in">
-                <CSSTransition timeout={300} key={location.key} classNames={"fade"}>
+                <CSSTransition timeout={300} key={location.key} classNames={"fade"} fallback={<LazyLoading/>}>
                     {currentOutlet}
                 </CSSTransition>
             </SwitchTransition>

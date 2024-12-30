@@ -11,15 +11,15 @@ import {lazyLoad} from "./lazyLoad.tsx";
 const router=createBrowserRouter([
     {
         path:"/",
-        element: <HomeLayout/>,
+        element:lazyLoad(<HomeLayout/>),
         children:[
             {
                 path: "/home",
-                element:<ContentBody/>,
+                element:lazyLoad(<ContentBody/>),
             },
             {
                 path: "activity",
-                element:<ActivityPage/>
+                element:lazyLoad(<ActivityPage/>)
             },
             {
                 path: "/",

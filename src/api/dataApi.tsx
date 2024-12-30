@@ -2,10 +2,9 @@ import axios from 'axios';
 import {message} from "antd";
 
 const api=axios.create({
-    baseURL:"http://localhost:18000/backapi",
+    baseURL:`http://localhost:18000`,
     timeout:15000,
 })
-const [messageApi] = message.useMessage();
 //请求拦截器
 api.interceptors.request.use(
     (config) => {
@@ -28,7 +27,7 @@ api.interceptors.response.use(
         const code=response.data.code;
         switch (code){
             case "200":
-                return {message:messageApi.open({
+                return {message:message.open({
                         type:"success",
                         content:response.data.msg,
                     })};
@@ -37,7 +36,7 @@ api.interceptors.response.use(
         return response.data;
     },
     (error) => {
-        return {message:messageApi.open({
+        return {message:message.open({
                 type:"error",
                 content:error.message,
             })};

@@ -1,5 +1,8 @@
-import {Avatar, Badge, Dropdown, MenuProps} from "antd";
+import {Avatar, Badge, Button, Dropdown, MenuProps} from "antd";
 import {UserOutlined} from "@ant-design/icons";
+import {getToken} from "../../../../router/token/token.tsx";
+import {Link} from "react-router-dom";
+import {isPastHours} from "../../../../router/privateRoute/PrivateRoute.tsx";
 const items: MenuProps['items'] = [
     {
         key: '1',
@@ -27,6 +30,14 @@ const items: MenuProps['items'] = [
     },
 ];
 const AvaterModel:React.FC = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const token: string= getToken();
+    const tokenObj = JSON.parse(token);
+    if(tokenObj==null||isPastHours(tokenObj.expired)){
+        return (<Link to={"userLayout/login"}><Button type={"primary"}>请登录</Button></Link>)
+
+    }
     return (
         <Badge count={1}>
             <Dropdown menu={{items: items}} placement="bottom">
@@ -34,5 +45,6 @@ const AvaterModel:React.FC = () => {
             </Dropdown>
         </Badge>
     )
+
 }
 export default AvaterModel;

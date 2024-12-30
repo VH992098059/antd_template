@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout, theme} from 'antd';
 import HeaderModel from "./HeaderModel/HeaderModel.tsx";
 import { useOutlet} from "react-router-dom";
-
+import "./HomeLayout.scss"
 
 const { Content, Footer } = Layout;
 
