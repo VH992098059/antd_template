@@ -1,7 +1,8 @@
 import api from "../../dataApi.tsx";
 import {message} from "antd";
 
-export function GetCode(phone:string){
+/*获取验证码*/
+export function AliyunGetCode(phone:string){
     api.post(`/sendCode`, {phone}).then(response=>{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error

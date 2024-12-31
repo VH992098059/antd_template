@@ -1,31 +1,40 @@
 import React, { useState} from "react";
 import {Button, Form, type FormProps, Input, Space} from "antd";
 import "./register.scss"
-import {Link} from "react-router-dom";
-import {GetCode} from "../../api/user/registerApi/getCode.tsx";
+import {Link, useNavigate} from "react-router-dom";
+import {AliyunGetCode} from "../../api/user/registerApi/AliyunCode.tsx";
+import {RegisterUser} from "../../api/user/registerApi/registerApi.tsx";
 
 type FieldType = {
     nickname: string,
     username?: string;
     password?: string;
     phone?: string;
+    type?:string;
     verification?: string;
 };
-
-const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-
-    console.log('Success:', values);
-};
+type FieleSame={
+    samepassword?: string,
+}
 
 const Register: React.FC = () =>{
+    const navigate = useNavigate();
     const [phone, setPhone] = useState<string>('');
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPhone(e.target.value);
     };
-
     const handleButtonClick = () => {
-        GetCode(phone)
+        AliyunGetCode(phone)
+    };
+    const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        const isSuccess = await RegisterUser(values);
+        if (isSuccess) {
+            navigate('/userLayout/login'); // 成功后跳转
+        }
+
+        console.log('Success:', values);
     };
     return (
         <div className={"registerBackground"}>
@@ -42,13 +51,23 @@ const Register: React.FC = () =>{
                     <Form.Item<FieldType> name='username' rules={[{required: true, message: '请输入账号！'}]}>
                         <Input placeholder='账号' size='large'/>
                     </Form.Item>
-
-                    <Form.Item<FieldType> name='password' rules={[{required: true, message: '请输入密码！'}]}>
+                    <Form.Item<FieldType> name='type' hidden={true} initialValue={"普通用户"}></Form.Item>
+                    <Form.Item<FieldType> name='password' rules={[{required: true, message: '请输入密码！'},{min:6,message:"密码不少于6位"}]}>
                         <Input.Password placeholder='密码' autoComplete='new-password' size='large'/>
                     </Form.Item>
-                    <Form.Item
-
-                        rules={[{required: true, message: '密码不匹配！'}]}
+                    <Form.Item<FieleSame>
+                        name='samepassword'
+                        rules={[
+                            { required: true, message: '请再次输入密码！' },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error('两次输入的密码不一致！'));
+                                },
+                            }),
+                        ]}
                     >
                         <Input.Password name='samePassword' placeholder={"请再次输入密码"} size='large'/>
                     </Form.Item>

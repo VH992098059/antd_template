@@ -1,8 +1,12 @@
 import {Avatar, Badge, Button, Dropdown, MenuProps} from "antd";
 import {UserOutlined} from "@ant-design/icons";
-import {getToken} from "../../../../router/token/token.tsx";
+import {clearToken, getToken} from "../../../../router/token/token.tsx";
 import {Link} from "react-router-dom";
 import {isPastHours} from "../../../../router/privateRoute/PrivateRoute.tsx";
+const Logout=()=>{
+    clearToken();
+    window.location.href = "/";
+}
 const items: MenuProps['items'] = [
     {
         key: '1',
@@ -23,10 +27,11 @@ const items: MenuProps['items'] = [
     {
         key: '3',
         label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+            <a target="_blank" rel="noopener noreferrer" onClick={Logout}>
                 退出登录
             </a>
         ),
+
     },
 ];
 const AvaterModel:React.FC = () => {

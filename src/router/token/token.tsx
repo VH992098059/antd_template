@@ -1,4 +1,4 @@
-export const setToken=(token:string)=>{
+export const setToken= (token: string)=>{
     return window.localStorage.setItem("token",token);
 }
 export const getToken=()=>{
