@@ -18,7 +18,7 @@ const router=createBrowserRouter([
                 element:lazyLoad(<ContentBody/>),
             },
             {
-                path: "activity",
+                path: "/home/activity",
                 element:lazyLoad(<ActivityPage/>)
             },
             {

@@ -22,7 +22,7 @@ const Login: React.FC = () =>{
             }
             navigate('/'); // 成功后跳转
         }
-        console.log('Success:', values);
+        // console.log('Success:', values);
     };
 
     return (

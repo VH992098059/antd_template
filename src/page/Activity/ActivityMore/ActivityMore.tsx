@@ -1,6 +1,9 @@
 import React, {useState} from "react";
 import {Menu, MenuProps} from "antd";
 import { MailOutlined} from "@ant-design/icons";
+import ActivityPicMore from "./ActivityPicMore/ActivityPicMore.tsx";
+import ActivityUserRate from "./ActivityUserRate/ActivityUserRate.tsx";
+import ActivityRecommend from "./ActivityRecommend/ActivityRecommend.tsx";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -29,6 +32,13 @@ const ActivityMore:React.FC=()=>{
         setCurrent(e.key);
     };
 
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+    return (<div>
+        <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+        <div style={{ marginTop: 20 }}>
+            {current === 'more' && <ActivityPicMore />}
+            {current === 'rate' && <ActivityUserRate/>}
+            {current === 'recommend' && <ActivityRecommend />}
+        </div>
+    </div>);
 };
 export default ActivityMore;

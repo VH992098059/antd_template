@@ -35,6 +35,7 @@ const items: MenuProps['items'] = [
     },
 ];
 const AvaterModel:React.FC = () => {
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     const token: string= getToken();
