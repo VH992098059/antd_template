@@ -18,7 +18,6 @@ type FieleSame={
 }
 
 const Register: React.FC = () =>{
-    const navigate = useNavigate();
     const [phone, setPhone] = useState<string>('');
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPhone(e.target.value);
@@ -31,7 +30,7 @@ const Register: React.FC = () =>{
         // @ts-expect-error
         const isSuccess = await RegisterUser(values);
         if (isSuccess) {
-            navigate('/userLayout/login'); // 成功后跳转
+            window.history.back() // 成功后跳转
         }
 
         console.log('Success:', values);
@@ -40,8 +39,14 @@ const Register: React.FC = () =>{
         <div className={"registerBackground"}>
 
             <div className={"register"}>
-                <Link to={"/userLayout/login"}><Button className={"loginReturn"} type={"primary"}
-                                                       danger>返回</Button></Link>
+                <Button 
+                    className={"loginReturn"} 
+                    type={"primary"} 
+                    danger 
+                    onClick={() => window.history.back()}
+                >
+                    返回
+                </Button>
                 <div className={"title"}>用户注册</div>
                 <div className={"subTitle"}>User Register</div>
                 <Form name='basic' className={"registerForm"} initialValues={{remember: true}} onFinish={onFinish}>

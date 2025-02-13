@@ -1,8 +1,33 @@
-#Carousel_body{
-  margin: 0;
-  height: 300px;
-  color: #fff;
-  line-height: 300px;
-  text-align: center;
-  background: #364d79;
+@media (min-width: 769px) {
+  #Carousel_body{
+    height: 420px;
+    color: #fff;
+    line-height: 420px;
+    text-align: center;
+    background: #364d79;
+    margin:0
+  }
+  #carousel{
+    padding: 20px;
+  }
+}
+@media (max-width: 768px) {
+  #Carousel_body{
+    height: 340px;
+    color: #fff;
+    line-height: 340px;
+    text-align: center;
+    background: #364d79;
+    margin:0
+  }
+}
+@media (max-width: 580px) {
+  #Carousel_body{
+    height: 240px;
+    color: #fff;
+    line-height: 240px;
+    text-align: center;
+    background: #364d79;
+    margin:0
+  }
 }

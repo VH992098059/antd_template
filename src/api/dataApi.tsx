@@ -9,9 +9,9 @@ const api=axios.create({
 api.interceptors.request.use(
     (config) => {
         console.log(config);
-        const token=localStorage.getItem("token");
+        const token=localStorage.getItem("auth");
         if(token){
-            config.headers.Authorization = token;
+            config.headers.Authorization = "Bearer "+token;
         }
         return config;
     },
@@ -35,10 +35,10 @@ api.interceptors.response.use(
         }
         return response.data;
     },
-    (error) => {
+    () => {
         return {message:message.open({
                 type:"error",
-                content:error.message,
+                content:"服务器错误",
             })};
     }
 )

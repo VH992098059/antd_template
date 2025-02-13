@@ -25,21 +25,24 @@
 
 .fade-enter {
   opacity: 0;
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(0.9); /* 添加缩放效果 */
+  transition: opacity 500ms ease-out, transform 500ms ease-out; /* 调整时间和缓动函数 */
 }
+
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 300ms, transform 300ms;
-
-
+  transform: scale(1); /* 恢复到正常大小 */
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
 }
+
 .fade-exit {
   opacity: 1;
-  transition: opacity 300ms, transform 300ms;
-
+  transform: scale(1);
+  transition: opacity 500ms ease-in, transform 500ms ease-in; /* 调整时间和缓动函数 */
 }
+
 .fade-exit-active {
   opacity: 0;
-
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(0.9); /* 添加缩放效果 */
+  transition: opacity 500ms ease-in, transform 500ms ease-in;
 }

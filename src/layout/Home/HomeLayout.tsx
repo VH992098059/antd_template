@@ -1,18 +1,22 @@
 import React from 'react';
 import {Layout, theme} from 'antd';
 import HeaderModel from "./HeaderModel/HeaderModel.tsx";
-import { useOutlet} from "react-router-dom";
+import { useOutlet, useLocation } from "react-router-dom";
 import "./HomeLayout.scss"
-
 const { Content, Footer } = Layout;
 
 
 
-const Home: React.FC = () => {
+const HomeLayout: React.FC = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
     const currentOutlet = useOutlet()
+    const location = useLocation();
+    const showFooter = !location.pathname.includes('/activity') && 
+                      !location.pathname.includes('/search') && 
+                      !location.pathname.includes('/your-new-path');
+
     return (
         <Layout>
             <HeaderModel/>
@@ -24,15 +28,17 @@ const Home: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    {currentOutlet}
+                     {currentOutlet}
 
                 </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-                Ant Design ©{new Date().getFullYear()} Created by 牛马哥
-            </Footer>
+            {showFooter && (
+                <Footer style={{ textAlign: 'center' }}>
+                    Ant Design ©{new Date().getFullYear()} Created by 牛马哥
+                </Footer>
+            )}
         </Layout>
     );
 };
 
-export default Home;
+export default HomeLayout;

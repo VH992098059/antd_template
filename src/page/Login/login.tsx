@@ -2,7 +2,7 @@ import React from 'react';
 import {FormProps} from 'antd';
 import { Button, Form, Input } from 'antd';
 import  "./login.scss"
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import {LoginUser} from "../../api/user/loginApi/loginApi.tsx";
 import {setToken} from "../../router/token/token.tsx";
 type FieldType = {
@@ -14,15 +14,20 @@ type FieldType = {
 
 const Login: React.FC = () =>{
     const navigate = useNavigate();
+    const location = useLocation();
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         const isSuccess = await LoginUser(values);
         if (isSuccess) {
             if (values.username != null) {
-                setToken(values.username)
+                setToken(values.username);
             }
-            navigate('/'); // 成功后跳转
+            if (location.state?.from === '/home') {
+                navigate('/',{replace:true});
+            } else {
+                window.history.back();
+            }
         }
-        // console.log('Success:', values);
+
     };
 
     return (
@@ -51,7 +56,9 @@ const Login: React.FC = () =>{
                         </Button>
                     </Form.Item>
                     <Form.Item style={{textAlign: 'center'}}>
-                        <Link to='/userLayout/register'>没有账号，点击注册！</Link>
+                        <Link to='/userLayout/register'>
+                            没有账号，点击注册！
+                        </Link>
                     </Form.Item>
                 </Form>
             </div>

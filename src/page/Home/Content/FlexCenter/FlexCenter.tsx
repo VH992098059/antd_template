@@ -1,116 +1,100 @@
-
-import { Button, Card, Flex, Typography } from 'antd';
-import "./FlexCenter.scss"
+import {Button, Card, Empty, Flex, Skeleton, Typography} from 'antd';
 import {FireOutlined} from "@ant-design/icons";
-import {ActivityList} from "../../../../api/activity/activity.tsx";
+import { ActivityList } from "../../../../api/activity/activity";
+
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import {getToken} from "../../../../router/token/token.tsx";
-const cardStyle: React.CSSProperties = {
-    width: 400,
-};
+import {CardStyle, ImgStyle} from "../../../../utils/global/CardCss.ts";
 
-const imgStyle: React.CSSProperties = {
-    display: 'block',
-    width: 200,
 
-};
-
-const Remen=()=>{
+const Remen = () => {
     const [items, setItems] = useState([]);
-    const navigate = useNavigate();
-
+    const [page, setPage] = useState(1);
+    const [size] = useState(8);
+    const [isLoading, setIsLoading] = useState(true); // 添加加载状态
+    const [hasMore, setHasMore] = useState(true); // 添加是否有更多数据的标志
     const GetCardId = (key: string) => {
-        if(getToken()===null){
-            navigate(`/home/activity?key=${key}`)
-        }else{
-            navigate(`/home/activity?key=${key}&uuid=${getToken()}`);
+        const url = getToken() === null 
+          ? `/home/activity?key=${key}`
+          : `/home/activity?key=${key}&uuid=${getToken()}`;
+        window.open(url, '_blank');
+      };
 
+
+    const fetchData = async (pageNum:number) => {
+        try {
+            setIsLoading(true);
+            const res = await ActivityList(pageNum, size);
+            if (res.list.length < size) {
+                setHasMore(false);
+            }
+            if (pageNum === 1) {
+                setItems(res.list);
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setIsLoading(false);
         }
-
     };
 
 
-    useEffect(() => {
-        ActivityList().then((res) => {
-            setItems(res);
-        });
-    }, []);
 
+    useEffect(() => {
+        fetchData(page);
+    }, [page]);
 
     return (
-        items.map((item) => (
-            /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-            // @ts-expect-error
-            <Card hoverable style={cardStyle} styles={{body: {padding: 0, overflow: 'hidden'}}} key={item.uuid} onClick={()=>{GetCardId(item.uuid)}}  >
-                <Flex justify="space-between">
-                    <img
-                        alt="avatar"
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                        style={imgStyle}
-                    />
-                    <Flex vertical align="flex-end" justify="space-between" style={{padding: 20}}>
-                        <Typography.Title level={5}>
-                            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                            { // @ts-expect-error
-                                item.activity_title}
-                        </Typography.Title>
-                        <span id={"hot"}><FireOutlined />&nbsp;33859</span>
+        <>
+            {items.map((item) => (
+                /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+                // @ts-expect-error
+                <Card hoverable style={CardStyle} styles={{body: {padding: 0, overflow: 'hidden'}}} key={item.uuid} onClick={()=>{GetCardId(item.uuid)}}  >
+                    <Flex justify="space-between">
+                        <img
+                            alt="avatar"
+                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                            style={ImgStyle}
+                        />
+                        <Flex vertical align="flex-end" justify="space-between" style={{padding: 20}}>
+                            <Typography.Title level={5}>
+                                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                                { // @ts-expect-error
+                                    item.activity_title}
+                            </Typography.Title>
+
+                            <span
+                                id={"hot"}><FireOutlined/>&nbsp;{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                                { // @ts-expect-error
+                                    item.popular}</span>
+                        </Flex>
                     </Flex>
-                </Flex>
-            </Card>
-        ))
+                </Card>
+            ))}
+            {isLoading && <Skeleton active />}
+            {!hasMore && items.length > 0 && (
+              <></>
+            )}
+            {!hasMore && items.length === 0 && <Empty description="暂无数据" />}
+        </>
     );
 
-}
-const FlexCenter: React.FC = () => (
+
+    
+
+};
+const FlexCenter = () => (
    <div>
        <Flex gap={"middle"} vertical={true}>
            <span style={{fontSize: "x-large", fontWeight: "bolder", padding: "0 25px"}}>热门活动</span>
            <Flex gap="middle" justify={'space-around'} style={{flexWrap: 'wrap',margin:"30px 0"}}>
                {Remen()}
            </Flex>
-           {/*全部活动*/}
-           <span style={{fontSize: "x-large", fontWeight: "bolder", padding: "0 25px"}}>全部活动</span>
-           <Flex gap="middle" justify={'space-around'} style={{flexWrap: 'wrap',margin:"30px 0"}}>
-               <Card hoverable style={cardStyle} styles={{body: {padding: 0, overflow: 'hidden'}}}>
-                   <Flex justify="space-between">
-                       <img
-                           alt="avatar"
-                           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                           style={imgStyle}
-                       />
-                       <Flex vertical align="flex-end" justify="space-between" style={{padding: 20}}>
-                           <Typography.Title level={5}>
-                               “你好，我是测试，我看看这个width有多大！”
-                           </Typography.Title>
-                           <Button type="primary" href="https://ant.design" target="_blank">
-                               参加活动
-                           </Button>
-                       </Flex>
-                   </Flex>
-               </Card>
-               <Card hoverable style={cardStyle} styles={{body: {padding: 0, overflow: 'hidden'}}}>
-                   <Flex justify="space-between">
-                       <img
-                           alt="avatar"
-                           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                           style={imgStyle}
-                       />
-                       <Flex vertical align="flex-end" justify="space-between" style={{padding: 20}}>
-                           <Typography.Title level={5}>
-                               “你好，我是测试，我看看这个width有多大！”
-                           </Typography.Title>
-                           <Button type="primary" href="https://ant.design" target="_blank">
-                               参加活动
-                           </Button>
-                       </Flex>
-                   </Flex>
-               </Card>
-           </Flex>
+           
        </Flex>
 
    </div>
 );
 
 export default FlexCenter;
+

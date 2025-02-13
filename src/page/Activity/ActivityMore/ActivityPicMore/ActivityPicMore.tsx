@@ -1,11 +1,12 @@
 import React from "react";
 const ActivityPicMore:React.FC=()=>{
     return (
-        <div style={{ padding: "0 5%" }}>
+        <div style={{ padding: "0 7%" }}>
 
-            <p>dasdadasdas</p>
-
-            <p>dasdadasdas</p>
+            <img src={"../../public/p2872591542.png"} width="100%" height="100%"/>
+            <img src={"../../public/p2872591542.png"} width="100%" height="100%"/>
+            <img src={"../../public/p2872591542.png"} width="100%" height="100%"/>
+            <img src={"../../public/p2872591542.png"} width="100%" height="100%"/>
 
         </div>
     );

@@ -1,8 +1,9 @@
 import api from "../../dataApi.tsx";
 import {message} from "antd";
 
+
 /*注册用户*/
-export const RegisterUser= async (regData:never)=>{
+export const RegisterUser = async (regData:never)=>{
     try{
         const response = await api.post('/backend/register', regData);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

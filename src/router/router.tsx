@@ -7,23 +7,35 @@ import Not_found from "../page/404/not_found.tsx";
 import Login from "../page/Login/login.tsx";
 import Register from "../page/Register/register.tsx";
 import {lazyLoad} from "./lazyLoad.tsx";
+import  ActivityTotalPage  from "../page/ActivityTotalPage/ActivityTotalPage.tsx";
+import { SearchPage } from "../page/Search/SearchPage.tsx";
+
 
 const router=createBrowserRouter([
     {
         path:"/",
         element:lazyLoad(<HomeLayout/>),
-        children:[
+        children: [
             {
                 path: "/home",
-                element:lazyLoad(<ContentBody/>),
+                element: lazyLoad(<ContentBody/>),
             },
             {
                 path: "/home/activity",
-                element:lazyLoad(<ActivityPage/>)
+                element: lazyLoad(<ActivityPage/>)
             },
             {
                 path: "/",
-                element:<Navigate to={"/home"}/>
+                element: <Navigate to={"/home"}/>
+            },
+            {
+                path: "/activity",
+                element: lazyLoad(<ActivityTotalPage/>)
+
+            },
+            {
+                path:"/search",
+                element:lazyLoad(<SearchPage/>)
             }
         ]
     },
@@ -49,4 +61,5 @@ const router=createBrowserRouter([
     }
 
 ])
+
 export default router;
