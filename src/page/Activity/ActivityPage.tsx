@@ -6,7 +6,7 @@ import ActivityMessage from "./ActivityMessage/ActivityMessage.tsx";
 import ActivityMore from "./ActivityMore/ActivityMore.tsx";
 import MyContent from "./ActivityContent/ActivityContent.tsx"
 import {GetActivity} from "../../api/activity/activity.tsx";
-
+/* 活动主页面 */
 const ActivityPage:React.FC = () => {
     const [items, setItems] = useState([]);
     const [isListening, setIsListening] = useState(true);

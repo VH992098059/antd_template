@@ -5,8 +5,7 @@ import { ImgStyle } from '../../utils/global/CardCss';
 import { CardStyle } from '../../utils/global/CardCss';
 import { FireOutlined } from '@ant-design/icons';
 import zhCN from 'antd/locale/zh_CN';
-import { getToken } from '../../router/token/token';
-import { useNavigate } from 'react-router-dom';
+import { getUuid } from '../../router/token/token';
 
 interface Activity {
   uuid: string;
@@ -15,7 +14,7 @@ interface Activity {
   imageUrl: string;
   date: string;
 }
-
+/* 活动总览页面 */
 const ActivityTotalPage: React.FC = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(false);
@@ -36,9 +35,9 @@ const ActivityTotalPage: React.FC = () => {
     }
   };
   const GetCardId = (key: string) => {
-    const url = getToken() === null 
+    const url = getUuid() === null 
       ? `/home/activity?key=${key}`
-      : `/home/activity?key=${key}&uuid=${getToken()}`;
+      : `/home/activity?key=${key}&uuid=${getUuid()}`;
     window.open(url, '_blank');
   };
   useEffect(() => {

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {FormProps} from 'antd';
 import { Button, Form, Input } from 'antd';
 import  "./login.scss"
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import {LoginUser} from "../../api/user/loginApi/loginApi.tsx";
-import {setToken} from "../../router/token/token.tsx";
 type FieldType = {
     username?: string;
     password?: string;
@@ -13,14 +12,17 @@ type FieldType = {
 
 
 const Login: React.FC = () =>{
+
     const navigate = useNavigate();
     const location = useLocation();
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+        
         const isSuccess = await LoginUser(values);
+        console.log(isSuccess);
+        
         if (isSuccess) {
-            if (values.username != null) {
-                setToken(values.username);
-            }
+            
+            /* 如果上一页为首页 */
             if (location.state?.from === '/home') {
                 navigate('/',{replace:true});
             } else {

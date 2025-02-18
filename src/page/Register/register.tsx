@@ -1,7 +1,6 @@
 import React, { useState} from "react";
 import {Button, Form, type FormProps, Input, Space} from "antd";
 import "./register.scss"
-import {Link, useNavigate} from "react-router-dom";
 import {AliyunGetCode} from "../../api/user/registerApi/AliyunCode.tsx";
 import {RegisterUser} from "../../api/user/registerApi/registerApi.tsx";
 

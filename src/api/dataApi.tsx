@@ -3,7 +3,7 @@ import {message} from "antd";
 
 const api=axios.create({
     baseURL:`http://localhost:18000`,
-    timeout:15000,
+    timeout:30000,
 })
 //请求拦截器
 api.interceptors.request.use(

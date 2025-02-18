@@ -8,6 +8,7 @@ import { JSX } from "react/jsx-runtime";
 import {useNavigate} from "react-router-dom";
 import Search from "antd/es/input/Search";
 
+
 function getItem(label: string, key: string, icon: JSX.Element, children: string) {
     return {
         key,
@@ -30,7 +31,7 @@ const HeaderModel: React.FC = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState('');
-
+   
     const homeClick = (val: never) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -96,6 +97,7 @@ const HeaderModel: React.FC = () => {
             &nbsp;
             &nbsp;
             <AvaterModel/>
+
         </Header>
     )
 };

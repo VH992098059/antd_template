@@ -1,18 +1,18 @@
 import {Button, message} from "antd";
 import {useContext, useEffect} from "react";
-import {getToken, setActivityUuid} from "../../../router/token/token.tsx";
+import {getUuid, setActivityUuid} from "../../../router/token/token.tsx";
 import MyContent from "../ActivityContent/ActivityContent.tsx";
 import { useNavigate } from 'react-router-dom';
 import { ActivityJoin } from "../../../api/activity/activity.tsx";
 const params = new URLSearchParams(window.location.search);
-            
+/* 获取活动信息 */
 const GetMes=(key:string)=>{
     const content =useContext(MyContent);
     const navigate = useNavigate();
     const SignUp =async ()=>{
-        if(getToken()===null){
+        if(getUuid()===null){
             message.warning("请登录")
-            // 1.5秒后跳转到登录页面
+            // 1.2秒后跳转到登录页面
             setTimeout(() => {
                 navigate('/userLayout/login');
             }, 1200);

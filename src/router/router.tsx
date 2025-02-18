@@ -9,12 +9,13 @@ import Register from "../page/Register/register.tsx";
 import {lazyLoad} from "./lazyLoad.tsx";
 import  ActivityTotalPage  from "../page/ActivityTotalPage/ActivityTotalPage.tsx";
 import { SearchPage } from "../page/Search/SearchPage.tsx";
+import { PrivateRoute } from "./privateRoute/PrivateRoute.tsx";
 
 
 const router=createBrowserRouter([
     {
         path:"/",
-        element:lazyLoad(<HomeLayout/>),
+        element:lazyLoad(<PrivateRoute><HomeLayout/></PrivateRoute>),
         children: [
             {
                 path: "/home",

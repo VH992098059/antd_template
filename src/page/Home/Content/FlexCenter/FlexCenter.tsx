@@ -3,10 +3,10 @@ import {FireOutlined} from "@ant-design/icons";
 import { ActivityList } from "../../../../api/activity/activity";
 
 import {useEffect, useState} from "react";
-import {getToken} from "../../../../router/token/token.tsx";
+import {getUuid} from "../../../../router/token/token.tsx";
 import {CardStyle, ImgStyle} from "../../../../utils/global/CardCss.ts";
 
-
+/* 主页内容 */
 const Remen = () => {
     const [items, setItems] = useState([]);
     const [page, setPage] = useState(1);
@@ -14,9 +14,9 @@ const Remen = () => {
     const [isLoading, setIsLoading] = useState(true); // 添加加载状态
     const [hasMore, setHasMore] = useState(true); // 添加是否有更多数据的标志
     const GetCardId = (key: string) => {
-        const url = getToken() === null 
+        const url = getUuid() === null 
           ? `/home/activity?key=${key}`
-          : `/home/activity?key=${key}&uuid=${getToken()}`;
+          : `/home/activity?key=${key}&uuid=${getUuid()}`;
         window.open(url, '_blank');
       };
 
