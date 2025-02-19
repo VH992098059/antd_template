@@ -8,7 +8,6 @@ const api=axios.create({
 //请求拦截器
 api.interceptors.request.use(
     (config) => {
-        console.log(config);
         const token=localStorage.getItem("auth");
         if(token){
             config.headers.Authorization = "Bearer "+token;
@@ -23,7 +22,6 @@ api.interceptors.request.use(
 //响应拦截器
 api.interceptors.response.use(
     (response)=>{
-        console.log(response);
         const code=response.data.code;
         switch (code){
             case "200":

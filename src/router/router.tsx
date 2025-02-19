@@ -10,6 +10,7 @@ import {lazyLoad} from "./lazyLoad.tsx";
 import  ActivityTotalPage  from "../page/ActivityTotalPage/ActivityTotalPage.tsx";
 import { SearchPage } from "../page/Search/SearchPage.tsx";
 import { PrivateRoute } from "./privateRoute/PrivateRoute.tsx";
+import { ProFile } from "../page/Account/profile/ProFile.tsx";
 
 
 const router=createBrowserRouter([
@@ -37,6 +38,10 @@ const router=createBrowserRouter([
             {
                 path:"/search",
                 element:lazyLoad(<SearchPage/>)
+            },
+            {
+                path:"/account/profile",
+                element:lazyLoad(<ProFile/>)
             }
         ]
     },

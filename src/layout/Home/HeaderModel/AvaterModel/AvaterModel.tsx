@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Badge, Button, Dropdown, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -8,6 +8,7 @@ import MyContext from "./AvaterContext"
 const AvatarModal: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const context=useContext(MyContext)
+  
   const handleLogout = async () => {
     try {
       setDropdownOpen(false);
@@ -24,7 +25,12 @@ const AvatarModal: React.FC = () => {
       key: 'user-info',
       label: (
         <div className="px-4 py-2">
-          <div className="text-base font-medium" style={{color:"black",fontWeight:"bold"}}>{context[0].length!=0?context[0].nickname:'未命名用户'}</div>
+          
+          <div className="text-base font-medium" style={{color:"black",fontWeight:"bold"}}>{
+            /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+          // @ts-expect-error
+            context[0].length!=0?context[0].nickname:'未命名用户'
+          }</div>
           <div className="text-gray-500 text-xs">{ '暂无账号信息'}</div>
         </div>
       ),
@@ -39,15 +45,7 @@ const AvatarModal: React.FC = () => {
         </Link>
       ),
     },
-    {
-      key: 'settings',
-      label: (
-        <Link to="/account/settings" onClick={() => setDropdownOpen(false)}>
-          账户设置
-        </Link>
-      ),
-    },
-    { type: 'divider' },
+
     {
       key: 'logout',
       label: (
@@ -80,7 +78,11 @@ const AvatarModal: React.FC = () => {
         >
           <Avatar 
 
-            icon={context[0].length!=0?context[0].avatar:<UserOutlined />}
+            icon={
+              /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+              // @ts-expect-error
+              context[0].length!=0?context[0].avatar:<UserOutlined />
+            }
             className="cursor-pointer hover:opacity-80 transition-opacity"
           />
         </Dropdown>
