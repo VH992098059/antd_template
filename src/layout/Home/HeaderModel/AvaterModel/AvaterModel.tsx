@@ -1,5 +1,5 @@
 import { useState, useContext} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Badge, Button, Dropdown, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -8,11 +8,14 @@ import MyContext from "./AvaterContext"
 const AvatarModal: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const context=useContext(MyContext)
-  
+  const navigate=useNavigate()
   const handleLogout = async () => {
     try {
       setDropdownOpen(false);
       clearToken(); // 清除所有认证token
+      if(/^\/account\//.test(window.location.pathname)){
+        navigate("/home")
+      }
       message.success('退出登录成功');
 
     } catch (error) {

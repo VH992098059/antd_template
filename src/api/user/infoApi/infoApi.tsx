@@ -10,3 +10,13 @@ export const InfoUser=async(userKey: object)=>{
         message.error('请求失败，请稍后重试');
     }
 }
+
+export const GetUserPerson=async(uuid:string)=>{
+    try{
+        const response =await api.get("/backend/userPersonMsg?uuid="+uuid)
+        return response.data.user
+        
+    }catch(err){
+        message.error('请求失败，请稍后重试');
+    }
+}

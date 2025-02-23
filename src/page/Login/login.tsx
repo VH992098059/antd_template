@@ -16,10 +16,7 @@ const Login: React.FC = () =>{
     const navigate = useNavigate();
     const location = useLocation();
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-        
         const isSuccess = await LoginUser(values);
-        console.log(isSuccess);
-        
         if (isSuccess) {
             
             /* 如果上一页为首页 */

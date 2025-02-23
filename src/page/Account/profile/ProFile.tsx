@@ -1,40 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { UploadFile, UploadProps } from 'antd';
 import { Card, Avatar, Descriptions, Typography, Input, DatePicker, Select, Upload, message } from "antd";
 import { MailOutlined, EditOutlined, UploadOutlined, UserOutlined, PhoneOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn"; // 导入中文包
-import zhCN from "antd/locale/zh_CN";
+import { GetUserPerson } from "../../../api/user/infoApi/infoApi";
+import { getUuid } from "../../../router/token/token";
 dayjs.locale("zh-cn");
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
 
 export const ProFile = () => {
   const [avatar, setAvatar] = useState("https://via.placeholder.com/64"); // 默认头像
-  const [name, setName] = useState("你停哥夏侯");
+  const [name, setName] = useState("");
   const [editingName, setEditingName] = useState(false);
 
-  const [email, setEmail] = useState("niuma9920@gmail.com");
+  const [email, setEmail] = useState("");
   const [editingEmail, setEditingEmail] = useState(false);
 
-  const [birthday, setBirthday] = useState("1990年3月1日");
+  const [birthday, setBirthday] = useState("");
   const [editingBirthday, setEditingBirthday] = useState(false);
 
-  const [gender, setGender] = useState("男");
+  const [gender, setGender] = useState("");
   const [editingGender, setEditingGender] = useState(false);
 
-  const [phone, setPhone] = useState("18181818181");
+  const [phone, setPhone] = useState("");
   const [editingPhone, setEditingPhone] = useState(false);
+
+  const [username,setUsername]=useState("")
+
   // 头像上传
-  // 类型定义
-  type UserProfile = {
-    name: string;
-    email: string;
-    birthday: string;
-    gender: string;
-    phone: string;
-    avatar: string;
-  };
+ 
 
   // 表单验证规则
   const validateEmail = (email: string) => {
@@ -48,42 +44,22 @@ export const ProFile = () => {
   const handleAvatarChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === "done") {
       // 假设服务器返回的图片 URL
-      const imageUrl = URL.createObjectURL(info.file.originFileObj);
+      const imageUrl = URL.createObjectURL(info.file.originFileObj as Blob);
       setAvatar(imageUrl);
       message.success("头像上传成功！");
     }
   };
 
-  // 保存个人信息
-  const handleSave = async () => {
-    try {
-      const profileData: UserProfile = {
-        name,
-        email,
-        birthday,
-        gender,
-        phone,
-        avatar
-      };
-
-      // 表单验证
-      if (!validateEmail(email)) {
-        message.error('请输入有效的电子邮件地址');
-        return;
-      }
-
-      if (!validatePhone(phone)) {
-        message.error('请输入有效的手机号码');
-        return;
-      }
-
-      // 这里可以添加实际保存逻辑
-      message.success('个人信息保存成功！');
-    } catch (error) {
-      message.error('保存失败，请重试');
-    }
-  };
-
+  
+  GetUserPerson(getUuid() as string).then((res)=>{
+    setName(res.nickname)
+    setEmail(res.email)
+    setPhone(res.phone)
+    setBirthday(dayjs(res.birthday).format('YYYY-MM-DD'))
+    setGender(res.sex)
+    setUsername(res.username)
+    setAvatar(res.avatar)
+  })
   return (
     <div style={{ maxWidth: 800, margin: "auto", padding: 24 }}>
       {/* 页面标题 */}
@@ -111,7 +87,7 @@ export const ProFile = () => {
           </Descriptions.Item>
 
           {/* 姓名（可编辑） */}
-          <Descriptions.Item label="姓名">
+          <Descriptions.Item label="昵称">
             {editingName ? (
               <Input
                 value={name}
@@ -126,7 +102,10 @@ export const ProFile = () => {
               </span>
             )}
           </Descriptions.Item>
-
+          {/* 账号 */}
+          <Descriptions.Item label="账号">
+            <span>{username}</span>
+          </Descriptions.Item>
           {/* 生日（可编辑） */}
           
           <Descriptions.Item label="生日">
@@ -134,7 +113,7 @@ export const ProFile = () => {
               <DatePicker
                 value={birthday ? dayjs(birthday, "YYYY年M月D日") : null}
                 onChange={(date, dateString) => {
-                  setBirthday(dateString);
+                  setBirthday(dateString as string);
                 }}
                 onOpenChange={(open) => {
                   // 当弹层关闭时退出编辑模式
@@ -167,7 +146,6 @@ export const ProFile = () => {
               >
                 <Option value="男">男</Option>
                 <Option value="女">女</Option>
-                <Option value="其他">其他</Option>
               </Select>
             ) : (
               <span onClick={() => setEditingGender(true)} style={{ cursor: "pointer" }}>

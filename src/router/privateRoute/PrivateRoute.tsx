@@ -3,6 +3,7 @@ import { message } from "antd";
 import { getAuth, getUuid, clearToken } from "../token/token.tsx";
 import { InfoUser} from "../../api/user/infoApi/infoApi.tsx";
 import MyContext from "../../layout/Home/HeaderModel/AvaterModel/AvaterContext.tsx"
+import { useNavigate } from "react-router-dom";
 interface Props{
     children:ReactElement;
 }
@@ -22,16 +23,22 @@ export function isPastHours(timestamp:number):boolean{
 export const PrivateRoute = ({ children }: Props) => {
   const [checkedAuth, setCheckedAuth] = useState(false);
   const [user,setUser]=useState([])
+  const navigate=useNavigate()
+  
   useEffect(() => {
     const verifyAuthentication = async () => {
       // 1. 检查本地凭证
       const authToken = getAuth();
       const uuid = getUuid();
-  
+      
       try {
         // 如果缺少凭证，则直接认为未登录，不弹出错误提示
         if (!authToken && !uuid) {
           setCheckedAuth(true);
+          if((authToken===null||uuid===null)&&/^\/account\//.test(window.location.pathname)){
+            navigate("/userLayout/login")
+            message.warning("请登录")
+          }
           return;
         }
         //调用用户信息API验证
@@ -45,6 +52,9 @@ export const PrivateRoute = ({ children }: Props) => {
               message.warning('登录状态已过期，请重新登录');
               clearToken();
               setCheckedAuth(true);
+              if((authToken===null||uuid===null)&&/^\/account\//.test(window.location.pathname)){
+                  navigate("/home")
+              }
             }else{
               setUser(res?.data)
             }
