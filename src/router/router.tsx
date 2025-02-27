@@ -46,7 +46,7 @@ const router=createBrowserRouter([
         ]
     },
     {
-        path:"/userLayout",
+        path:"/account",
         element: lazyLoad(<UserLayout/>),
         children:[
             {

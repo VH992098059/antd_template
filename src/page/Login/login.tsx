@@ -55,7 +55,7 @@ const Login: React.FC = () =>{
                         </Button>
                     </Form.Item>
                     <Form.Item style={{textAlign: 'center'}}>
-                        <Link to='/userLayout/register'>
+                        <Link to='/account/register'>
                             没有账号，点击注册！
                         </Link>
                     </Form.Item>

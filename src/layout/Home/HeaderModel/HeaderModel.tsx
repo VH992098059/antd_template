@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { useLocation } from "react-router-dom";
-import {Menu, message} from "antd";
+import {Dropdown, Menu, MenuProps, message} from "antd";
 import {Header} from "antd/es/layout/layout";
 import AvaterModel from "./AvaterModel/AvaterModel.tsx";
-import {GiftOutlined, HomeOutlined} from "@ant-design/icons";
+import {GiftOutlined, HomeOutlined, SearchOutlined} from "@ant-design/icons";
 import { JSX } from "react/jsx-runtime";
 import {useNavigate} from "react-router-dom";
 import Search from "antd/es/input/Search";
@@ -18,7 +18,7 @@ function getItem(label: string, key: string, icon: JSX.Element, children: string
     };
 }
 
-const items = [
+const menuItems = [
     getItem("首页", '/home', <HomeOutlined/>, ""),
     getItem("活动", '/activity', <GiftOutlined/>, ""),
 
@@ -31,7 +31,21 @@ const HeaderModel: React.FC = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState('');
-   
+    const [useOpen,setOpen]=useState(false)
+    const searchRef = useRef<any>(null);
+    const isOpen=()=>{
+        const intervalId = window.setInterval(() => {
+            searchRef.current.input.focus()
+          }, 400);
+        setOpen(true)
+        return () => {
+            window.clearInterval(intervalId);
+        };
+    }
+    const isBulr=()=>{
+        setOpen(false)
+        
+    }
     const homeClick = (val: never) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -63,8 +77,26 @@ const HeaderModel: React.FC = () => {
         };
     })
     /*获取浏览器像素宽度*/
-    const styleWidth=windowWidth>768?"350px":""
-
+    const styleWidth=windowWidth>768?"350px":"200px"
+    const paddingLeftWidth=windowWidth>768?"":"0"
+    const paddingRightWidth=windowWidth>768?"":"10px"
+    const items: MenuProps['items'] =[
+        {
+            key: '1',
+            label: <Search 
+                value={searchValue}
+                onChange={e => setSearchValue(e.target.value)}
+                placeholder={"请搜索内容"} 
+                enterButton={"搜索"} 
+                id={"search"} 
+                ref={searchRef}
+                style={{width:styleWidth}} 
+                onSearch={searchClick}
+                onBlur={isBulr}
+            />,
+        },
+    ]
+    
     return (
         <Header  style={{
             position: 'sticky',
@@ -73,32 +105,39 @@ const HeaderModel: React.FC = () => {
             width: '100%',
             display: 'flex',
             alignItems: 'center',
-          }}>
+            paddingLeft:paddingLeftWidth,
+            paddingRight:paddingRightWidth
+        }}>
             <div className="demo-logo"/>
             <Menu
                 theme="dark"
                 mode="horizontal"
                 selectedKeys={[selectedKey]}
-                items={items}
-                style={{flex: 1, minWidth: 0}}
+                items={menuItems}
+                style={{flex: 1, minWidth: 0,padding:0}}
                 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
                 // @ts-expect-error
                 onClick={homeClick}
             />
-            <Search 
-                value={searchValue}
-                onChange={e => setSearchValue(e.target.value)}
-                placeholder={"请搜索内容"} 
-                enterButton={"搜索"} 
-                id={"search"} 
-                style={{width:styleWidth}} 
-                onSearch={searchClick}
-            />
+            {
+                windowWidth>768?<Search 
+                    value={searchValue}
+                    onChange={e => setSearchValue(e.target.value)}
+                    placeholder={"请搜索内容"} 
+                    enterButton={"搜索"} 
+                    id={"search"} 
+                  
+                    style={{width:styleWidth}} 
+                    onSearch={searchClick}
+                    
+                />:<Dropdown menu={{items}} open={useOpen} autoFocus={true} ><button style={{backgroundColor:"#1677ff"}} onClick={isOpen} ><SearchOutlined/></button></Dropdown>
+            }
             &nbsp;
             &nbsp;
             <AvaterModel/>
 
         </Header>
+        
     )
 };
 export default HeaderModel;

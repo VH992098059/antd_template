@@ -21,7 +21,7 @@ const HomeLayout: React.FC = () => {
 
     return (
         <Layout>
-                <HeaderModel/>
+            <HeaderModel/>
             <Content>
                 <div
                     style={{

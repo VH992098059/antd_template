@@ -7,13 +7,13 @@ import { clearToken, getAuth, getUuid } from '../../../../router/token/token';
 import MyContext from "./AvaterContext"
 const AvatarModal: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const context=useContext(MyContext)
+  const context=useContext(MyContext)/*创建上下文*/
   const navigate=useNavigate()
   const handleLogout = async () => {
     try {
       setDropdownOpen(false);
       clearToken(); // 清除所有认证token
-      if(/^\/account\//.test(window.location.pathname)){
+      if(/^\/account\//.test(window.location.pathname)){/* 正则表达判断url */
         navigate("/home")
       }
       message.success('退出登录成功');
@@ -61,7 +61,7 @@ const AvatarModal: React.FC = () => {
 
   if (!getAuth()||!getUuid()) {
     return (
-      <Link to="/userLayout/login">
+      <Link to="/account/login">
         <Button type="primary" ghost>
           立即登录
         </Button>
