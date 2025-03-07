@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { List, Pagination, Card, Image, Flex, Typography, ConfigProvider } from 'antd';
+import { List, Pagination, Card, Image, Flex, Typography, ConfigProvider, Skeleton, Empty } from 'antd';
 import { ActivityList } from '../../api/activity/activity';
 import { ImgStyle } from '../../utils/global/CardCss';
 import { CardStyle } from '../../utils/global/CardCss';
@@ -48,7 +48,31 @@ const ActivityTotalPage: React.FC = () => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  if(loading){
+    return (
+      <div style={{ padding: '40px' }}>
+          <Flex vertical gap="large">
+              <Skeleton.Input style={{ width: 300, height: 40 }} active size="large" />
+              <Skeleton active paragraph={{ rows: 10, width: ['100%', '100%', '100%', '100%'] }} />
+          </Flex>
+      </div>
+    );
+  }
+  else if(!loading&&activities.length===0){
+    return (
+      <div style={{ 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh'  // 设置高度以确保垂直居中
+      }}>
+          <Empty 
+              description="服务器错误" 
 
+          />
+      </div>
+  )
+  }
   return (
     <div style={{ 
  

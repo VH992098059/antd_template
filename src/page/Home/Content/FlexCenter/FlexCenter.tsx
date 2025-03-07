@@ -38,50 +38,59 @@ const Remen = () => {
         }
     };
 
-
-
     useEffect(() => {
         fetchData(page);
+        
     }, [page]);
-
-    return (
-        <>
-            {items.map((item) => (
-                /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-                // @ts-expect-error
-                <Card hoverable style={CardStyle} styles={{body: {padding: 0, overflow: 'hidden'}}} key={item.uuid} onClick={()=>{GetCardId(item.uuid)}}  >
-                    <Flex justify="space-between">
-                        <img
-                            alt="avatar"
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                            style={ImgStyle}
-                        />
-                        <Flex vertical align="flex-end" justify="space-between" style={{padding: 20}}>
-                            <Typography.Title level={5}>
-                                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                                { // @ts-expect-error
-                                    item.activity_title}
-                            </Typography.Title>
-
-                            <span
-                                id={"hot"}><FireOutlined/>&nbsp;{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                                { // @ts-expect-error
-                                    item.popular}</span>
-                        </Flex>
-                    </Flex>
-                </Card>
-            ))}
-            {isLoading && <Skeleton active />}
-            {!hasMore && items.length > 0 && (
-              <></>
-            )}
-            {!hasMore && items.length === 0 && <Empty description="暂无数据" />}
-        </>
-    );
-
-
+    if(isLoading){
+        return(
+            <Skeleton active style={{padding:"0 30px"}}/>
+        )
+    }else if(items.length==0){
+        return (
+            <div style={{ 
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <Empty 
+                    description="搜索未找到" 
+   
+                />
+            </div>
+        )
+    }
+    else{
+        return (
+            <>
+                {items.map((item) => (
+                    /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+                    // @ts-expect-error
+                    <Card hoverable style={CardStyle} styles={{body: {padding: 0, overflow: 'hidden'}}} key={item.uuid} onClick={()=>{GetCardId(item.uuid)}}  >
+                        <Flex justify="space-between">
+                            <img
+                                alt="avatar"
+                                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                style={ImgStyle}
+                            />
+                            <Flex vertical align="flex-end" justify="space-between" style={{padding: 20}}>
+                                <Typography.Title level={5}>
+                                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                                    { // @ts-expect-error
+                                        item.activity_title}
+                                </Typography.Title>
     
-
+                                <span
+                                    id={"hot"}><FireOutlined/>&nbsp;{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                                    { // @ts-expect-error
+                                        item.popular}</span>
+                            </Flex>
+                        </Flex>
+                    </Card>
+                ))}
+            </>
+        );
+    }
 };
 const FlexCenter = () => (
    <div>

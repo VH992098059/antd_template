@@ -20,8 +20,8 @@ function getItem(label: string, key: string, icon: JSX.Element, children: string
 
 const menuItems = [
     getItem("首页", '/home', <HomeOutlined/>, ""),
-    getItem("活动", '/activity', <GiftOutlined/>, ""),
-
+    getItem("活动专栏", '/activity', <GiftOutlined/>, ""),
+    getItem("宿舍专栏","/dormitory",<></>,"")
 ];
 
 

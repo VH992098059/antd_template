@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import {Layout, theme} from 'antd';
+import {FloatButton, Layout, Modal, theme} from 'antd';
 import HeaderModel from "./HeaderModel/HeaderModel.tsx";
 import { useOutlet, useLocation } from "react-router-dom";
 import "./HomeLayout.scss"
+import { MessageOutlined } from '@ant-design/icons';
+import { AiChat } from './chat/AiChat.tsx';
 const { Content, Footer } = Layout;
 
 
@@ -14,6 +16,15 @@ const HomeLayout: React.FC = () => {
     } = theme.useToken();
     const currentOutlet = useOutlet()
     const location = useLocation();
+    const [visible, setVisible] = useState(false);
+
+    const openChat = () => {
+        setVisible(true);
+    };
+
+    const closeChat = () => {
+        setVisible(false);
+    };
     /* 指定隐藏url */
     const showFooter = !location.pathname.includes('/activity') && 
                       !location.pathname.includes('/search') && 
@@ -22,6 +33,8 @@ const HomeLayout: React.FC = () => {
     return (
         <Layout>
             <HeaderModel/>
+            
+            
             <Content>
                 <div
                     style={{
@@ -31,8 +44,15 @@ const HomeLayout: React.FC = () => {
                     }}
                 >
                      {currentOutlet}
-
                 </div>
+                <>
+                    <FloatButton
+                        icon={<MessageOutlined />}
+                        style={{ right: 24, bottom: 24 }}
+                        onClick={openChat}
+                    />
+        
+                </>
             </Content>
             {showFooter && (
                 <Footer style={{ textAlign: 'center' }}>
